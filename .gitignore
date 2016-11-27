@@ -1,0 +1,6 @@
+**/*.pyc
+*.egg-info
+model_exports
+build
+sandbox/data
+tmp
