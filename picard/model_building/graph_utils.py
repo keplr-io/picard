@@ -1,3 +1,8 @@
+'''
+    Utitilies for hyperparamter model structure graph processing
+'''
+
+
 from networkx import MultiDiGraph
 
 def get_graph(model_spec, debug=False):
@@ -22,7 +27,7 @@ def get_graph(model_spec, debug=False):
         ]
     )
 
-    if (debug):
+    if debug:
         draw_graph(graph)
 
     return graph

@@ -9,4 +9,15 @@ setup(
     license='fuckyou',
     keywords='picard',
     packages=find_packages(),
+    install_requires=[
+        'keras',
+        'tensorflow',
+        'flask',
+        'flask_cors',
+        'gevent',
+        'numpy',
+        'networkx',
+        'hyperopt',
+        'boto3'
+    ]
 )
