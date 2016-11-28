@@ -67,7 +67,7 @@ def get_space(data_spec):
 
                 'score': {
                     'loss': 'binary_crossentropy',
-                    'loss_weight': 1.
+                    # 'loss_weight': 1.
                 },
 
             }

@@ -8,24 +8,31 @@ from picard.search.spark_model import SparkMinimizer
 
 from graph_hyperspec import hyperspec
 from data import get_data
+from keras import backend as K
+# import tensorflow as tf
 
-conf = SparkConf().setAppName('lol ')
+# K.set_session(tf.Session(
+# 	config=tf.ConfigProto(device_count={'GPU': 0})
+# ))
+
+conf = SparkConf().setAppName('search ')
 context = SparkContext(conf=conf)
 
 sparkModel = SparkMinimizer(
     'minimize-exp-search',
     'minimize-exp',
     context,
-    3
+    2
 )
 
 minModel = sparkModel.minimize(
     space=hyperspec,
     data=get_data(),
     search_config={
-        'max_evals': 10
+        'max_evals': 2
     }
 )
+
 
 print(minModel)
 

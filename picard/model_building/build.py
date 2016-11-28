@@ -6,7 +6,6 @@ from keras.layers import Input, merge
 
 from .graph_utils import get_graph, get_graph_edge
 from .operator_utils import get_operator_image
-import tensorflow as tf
 from keras import backend as K
 
 def build_model(model_spec):
@@ -14,16 +13,16 @@ def build_model(model_spec):
     '''
         Yields a compiled keras model
     '''
+    if K.backend() == 'tensorflow':
+        import tensorflow as tf
 
-    oldSession = K.get_session()
-    if (oldSession != None):
-        oldSession.close()
+        old_session = K.get_session()
+        if old_session != None:
+            old_session.close()
 
-    K.set_session(tf.Session(config=tf.ConfigProto(
-        gpu_options=tf.GPUOptions(
-            allow_growth = True,
-        )
-    )))
+        K.set_session(tf.Session(config=tf.ConfigProto(
+            gpu_options=tf.GPUOptions(allow_growth = True)
+        )))
 
     operator_images = get_operator_images(model_spec)
 
@@ -43,7 +42,7 @@ def build_model(model_spec):
             leg_spec['loss']
             for leg_key, leg_spec in model_spec['legs']['outgoing'].iteritems()
         ],
-        loss_weight=[
+        loss_weights=[
             leg_spec['loss_weight']
             for leg_key, leg_spec in model_spec['legs']['outgoing'].iteritems()
         ],

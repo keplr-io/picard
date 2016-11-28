@@ -18,6 +18,7 @@ setup(
         'numpy',
         'networkx',
         'hyperopt',
-        'boto3'
+        'boto3',
+        'heraspy'
     ]
 )
