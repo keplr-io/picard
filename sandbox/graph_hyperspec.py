@@ -26,7 +26,7 @@ hyperspec = {
             'spec': {
                 'output_dim': 64,
                 'activation': {
-                    '&choice': {
+                    '$choice': {
                         'options': ['relu', 'sigmoid']
                     }
                 }
@@ -118,9 +118,7 @@ hyperspec = {
                     '#repeat': {
                         'operator': 'dense',
                         'times': {
-                            '$randint': {
-                                'upper': 6
-                            }
+                            '$randint': 5
                         }
                     }
                 }
@@ -146,7 +144,7 @@ hyperspec = {
 
     'compile': {
         'optimizer': {
-            '&choice': {
+            '$choice': {
                 'options': ['rmsprop', 'adam']
             }
         }
@@ -154,7 +152,7 @@ hyperspec = {
 
     'fit': {
         'batch_size': {
-            '&choice': {
+            '$choice': {
                 'options': [64, 128]
             }
         },
