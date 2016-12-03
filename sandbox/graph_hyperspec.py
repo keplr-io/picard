@@ -46,28 +46,22 @@ hyperspec = {
 
     'legs': {
         'incoming': {
-            'headline-input': {
+            'input-1': {
                 'shape': (100,),
                 'dtype': 'int32'
             },
 
-            'aux-input': {
+            'input-2': {
                 'shape': (5,)
             }
         },
 
         'outgoing': {
-            'headline-output': {
+            'output-0': {
                 'loss': 'binary_crossentropy',
-                'loss_weight': 1.
             },
-            'aux-output': {
-                'loss': 'binary_crossentropy',
-                'loss_weight': 0.2
-            }
         }
     },
-
 
     'graph': {
 
@@ -80,7 +74,7 @@ hyperspec = {
 
         'edges': [
             {
-                'source': 'headline-input',
+                'source': 'input-0',
                 'target': 'post-embedding',
                 'operator': 'embedding'
             },
@@ -90,7 +84,7 @@ hyperspec = {
                 'operator': 'lstm'
             },
             {
-                'source': 'aux-input',
+                'source': 'input-1',
                 'target': 'pre-dense',
                 'operator': 'IDENTITY'
             },
@@ -130,14 +124,9 @@ hyperspec = {
             },
             {
                 'source': 'post-dense3',
-                'target': 'headline-output',
+                'target': 'output-0',
                 'operator': 'smallDense'
-            },
-            {
-                'source': 'post-lstm',
-                'target': 'aux-output',
-                'operator': 'smallDense'
-            },
+            }
         ]
 
     },
