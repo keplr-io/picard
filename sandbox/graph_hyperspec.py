@@ -26,7 +26,7 @@ hyperspec = {
             'spec': {
                 'output_dim': 64,
                 'activation': {
-                    '$choice': {
+                    '&choice': {
                         'options': ['relu', 'sigmoid']
                     }
                 }
@@ -102,12 +102,28 @@ hyperspec = {
             {
                 'source': 'pre-dense',
                 'target': 'post-dense1',
-                'operator': 'dense'
+                'operator': {
+                    '#compose': {
+                        'operators': [
+                            'dense',
+                            'dense'
+                        ]
+                    }
+                }
             },
             {
                 'source': 'post-dense1',
                 'target': 'post-dense2',
-                'operator': 'dense'
+                'operator': {
+                    '#repeat': {
+                        'operator': 'dense',
+                        'times': {
+                            '$randint': {
+                                'upper': 6
+                            }
+                        }
+                    }
+                }
             },
             {
                 'source': 'post-dense2',
@@ -130,7 +146,7 @@ hyperspec = {
 
     'compile': {
         'optimizer': {
-            '$choice': {
+            '&choice': {
                 'options': ['rmsprop', 'adam']
             }
         }
@@ -138,7 +154,7 @@ hyperspec = {
 
     'fit': {
         'batch_size': {
-            '$choice': {
+            '&choice': {
                 'options': [64, 128]
             }
         },
