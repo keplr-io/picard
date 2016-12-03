@@ -52,9 +52,6 @@ def build_model(model_spec):
 
     return model
 
-
-
-
 def get_operator_images(model_spec):
 
     '''
