@@ -47,12 +47,10 @@ hyperspec = {
     'legs': {
         'incoming': {
             'input-1': {
-                'shape': (100,),
                 'dtype': 'int32'
             },
 
             'input-2': {
-                'shape': (5,)
             }
         },
 

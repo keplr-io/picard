@@ -13,6 +13,15 @@ def build_model(model_spec, data_spec):
 
     hypermodel = deepcopy(model_spec)
 
+    for field_key in data_spec['in']:
+        hypermodel['legs']['incoming'][
+            'input-{}'.format(field_key)
+        ]['shape'] = data_spec['fields'][field_key]['shape']
+
+    for field_key in data_spec['out']:
+        hypermodel['legs']['outgoing'][
+            'output-{}'.format(field_key)
+        ]['shape'] = data_spec['fields'][field_key]['shape']
 
 
     '''
@@ -29,32 +38,30 @@ def build_model(model_spec, data_spec):
             gpu_options=tf.GPUOptions(allow_growth = True)
         )))
 
-
-
-    operator_images = get_operator_images(model_spec)
+    operator_images = get_operator_images(hypermodel)
 
     model = Model(
         input=[
             operator_images[leg_key]
-            for leg_key in model_spec['legs']['incoming']
+            for leg_key in hypermodel['legs']['incoming']
         ],
         output=[
             operator_images[leg_key]
-            for leg_key in model_spec['legs']['outgoing']
+            for leg_key in hypermodel['legs']['outgoing']
         ]
     )
 
     model.compile(
         loss=[
             leg_spec['loss']
-            for leg_key, leg_spec in model_spec['legs']['outgoing'].iteritems()
+            for leg_key, leg_spec in hypermodel['legs']['outgoing'].iteritems()
         ],
         loss_weights=[
             leg_spec['loss_weight']
-            for leg_key, leg_spec in model_spec['legs']['outgoing'].iteritems()
+            for leg_key, leg_spec in hypermodel['legs']['outgoing'].iteritems()
         ],
         metrics=['accuracy'],
-        **model_spec['compile']
+        **hypermodel['compile']
     )
 
     return model
