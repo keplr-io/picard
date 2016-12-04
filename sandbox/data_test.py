@@ -4,13 +4,16 @@ picard_input = get_picard_input(
     {
         'fields': {
             'title': {
-                'type': 'text_seq'
+                'type': 'text_seq',
+                'shape': (1000,)
             },
             'time_ts': {
                 'type': 'date'
+                'shape': (5,)
             },
             'score': {
-                'type': 'float'
+                'type': 'float',
+                'shape': (1,)
             }
         },
         'in': [

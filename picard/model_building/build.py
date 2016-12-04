@@ -9,8 +9,7 @@ from .operator_utils import get_operator_image
 from keras import backend as K
 from copy import deepcopy
 
-def build_model(model_spec, data_spec):
-
+def get_hypermodel(model_spec, data_spec):
     hypermodel = deepcopy(model_spec)
 
     for field_key in data_spec['in']:
@@ -22,7 +21,11 @@ def build_model(model_spec, data_spec):
         hypermodel['legs']['outgoing'][
             'output-{}'.format(field_key)
         ]['shape'] = data_spec['fields'][field_key]['shape']
+    return hypermodel
 
+def build_model(model_spec, data_spec):
+
+    hypermodel = get_hypermodel(model_spec, data_spec)
 
     '''
         Yields a compiled keras model
