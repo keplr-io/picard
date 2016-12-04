@@ -7,8 +7,13 @@ from keras.layers import Input, merge
 from .graph_utils import get_graph, get_graph_edge
 from .operator_utils import get_operator_image
 from keras import backend as K
+from copy import deepcopy
 
-def build_model(model_spec):
+def build_model(model_spec, data_spec):
+
+    hypermodel = deepcopy(model_spec)
+
+
 
     '''
         Yields a compiled keras model
@@ -23,6 +28,8 @@ def build_model(model_spec):
         K.set_session(tf.Session(config=tf.ConfigProto(
             gpu_options=tf.GPUOptions(allow_growth = True)
         )))
+
+
 
     operator_images = get_operator_images(model_spec)
 

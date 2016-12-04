@@ -6,29 +6,36 @@ from ..preprocessors.by_type import preprocessors_by_type
 # TODO: expose this config to something
 split = 0.3
 
-def get_picard_input(data_spec, path, hypermodel):
+def get_picard_input(data_spec, path):
+
+    fields_spec = data_spec['fields']
 
     fields_data = get_fields_data(
-        data_spec['fields'],
-        get_fields_df(data_spec['fields'], path)
+        fields_spec,
+        get_fields_df(fields_spec, path)
     )
 
-    num_rows = fields_data.items()[0][1].size
-    split_idx = floor(num_rows * split)
+    split_idx = floor(fields_data.items()[0][1].size * split)
+
+    def get_input_key(field_key):
+        return 'input-{}'.format(fields_spec[field_key]['idx'])
+
+    def get_output_key(field_key):
+        return 'output-{}'.format(fields_spec[field_key]['idx'])
 
     return {
 
         'train': {
             'in': dict([
                 (
-                    'input-{}'.format(fields_data[field_key]['idx']),
+                    get_input_key(field_key),
                     fields_data[field_key]['data'][split_idx:]
                 )
                 for field_key in data_spec['in']
             ]),
             'out': dict([
                 (
-                    'output-{}'.format(fields_data[field_key]['idx']),
+                    get_output_key(field_key),
                     fields_data[field_key]['data'][split_idx:]
                 )
                 for field_key in data_spec['out']
@@ -38,14 +45,14 @@ def get_picard_input(data_spec, path, hypermodel):
         'test': {
             'in': dict([
                 (
-                    'input-{}'.format(fields_data[field_key]['idx']),
+                    get_input_key(field_key),
                     fields_data[field_key]['data'][:split_idx]
                 )
                 for field_key in data_spec['in']
             ]),
             'out': dict([
                 (
-                    'output-{}'.format(fields_data[field_key]['idx']),
+                    get_output_key(field_key),
                     fields_data[field_key]['data'][:split_idx]
                 )
                 for field_key in data_spec['out']
@@ -58,12 +65,9 @@ def get_fields_data(fields_spec, df):
     return dict([
         (
             field_key,
-            {
-                'idx': field_spec['idx'],
-                'data': preprocessors_by_type[
-                    field_spec['type']
-                ](df[field_key])
-            }
+            preprocessors_by_type[
+                field_spec['type']
+            ](df[field_key])
         )
         for (field_key, field_spec) in fields_spec.items()
     ])
