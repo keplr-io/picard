@@ -26,7 +26,7 @@ hyperspec = {
             'spec': {
                 'output_dim': 64,
                 'activation': {
-                    '$choice': {
+                    '&choice': {
                         'options': ['relu', 'sigmoid']
                     }
                 }
@@ -70,68 +70,75 @@ hyperspec = {
             'post-dense2',
         ],
 
-        'edges': [
-            {
-                'source': 'input-0',
-                'target': 'post-embedding',
-                'operator': 'embedding'
-            },
-            {
-                'source': 'post-embedding',
-                'target': 'post-lstm',
-                'operator': 'lstm'
-            },
-            {
-                'source': 'input-1',
-                'target': 'pre-dense',
-                'operator': 'IDENTITY'
-            },
-            {
-                'source': 'post-lstm',
-                'target': 'pre-dense',
-                'operator': 'IDENTITY'
-            },
-            {
-                'source': 'pre-dense',
-                'target': 'post-dense1',
-                'operator': {
+        'edges': {
+            '@concat': [
+                [
+                    {
+                        'source': 'input-0',
+                        'target': 'post-embedding',
+                        'operator': 'embedding'
+                    },
+
+                    {
+                        'source': 'post-embedding',
+                        'target': 'post-lstm',
+                        'operator': 'lstm'
+                    },
+
+                    {
+                        'source': 'input-1',
+                        'target': 'pre-dense',
+                        'operator': 'IDENTITY'
+                    },
+
+                    {
+                        'source': 'post-lstm',
+                        'target': 'pre-dense',
+                        'operator': 'IDENTITY'
+                    },
+
+                    {
+                        'source': 'post-dense2',
+                        'target': 'post-dense3',
+                        'operator': 'dense'
+                    },
+
+                    {
+                        'source': 'post-dense3',
+                        'target': 'output-0',
+                        'operator': 'smallDense'
+                    }
+                ],
+                {
                     '#compose': {
+                        'source': 'pre-dense',
+                        'target': 'post-dense1',
                         'operators': [
                             'dense',
                             'dense'
                         ]
                     }
-                }
-            },
-            {
-                'source': 'post-dense1',
-                'target': 'post-dense2',
-                'operator': {
+                },
+                {
                     '#repeat': {
+                        'source': 'post-dense1',
+                        'target': 'post-dense2',
                         'operator': 'dense',
                         'times': {
-                            '$randint': 5
+                            '&randint': {
+                                'upper': 5
+                            }
                         }
                     }
                 }
-            },
-            {
-                'source': 'post-dense2',
-                'target': 'post-dense3',
-                'operator': 'dense'
-            },
-            {
-                'source': 'post-dense3',
-                'target': 'output-0',
-                'operator': 'smallDense'
-            }
-        ]
+            ]
+        }
 
     },
 
     'compile': {
         'optimizer': {
-            '$choice': {
+            '&choice': {
                 'options': ['rmsprop', 'adam']
             }
         }
@@ -139,7 +146,7 @@ hyperspec = {
 
     'fit': {
         'batch_size': {
-            '$choice': {
+            '&choice': {
                 'options': [64, 128]
             }
         },
