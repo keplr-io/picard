@@ -111,18 +111,19 @@ spec = {
                         'target': 'post-dense1',
                         'operators': [
                             'dense',
+                            'dense',
                             'dense'
                         ]
                     }
-                },
-                {
-                    '#repeat': {
-                        'source': 'post-dense1',
-                        'target': 'post-dense2',
-                        'operator': 'dense',
-                        'times': 3
-                    }
-                }
+                }#,
+                # {
+                #     '#repeat': {
+                #         'source': 'post-dense1',
+                #         'target': 'post-dense2',
+                #         'operator': 'dense',
+                #         'times': 3
+                #     }
+                # }
             ]
         }
 

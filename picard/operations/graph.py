@@ -12,6 +12,7 @@ def apply_graph_operation(obj_id, obj, cmd, parse_config):
 
     if cmd == 'repeat':
         config = parse_config(obj['#repeat'])
+        # print([config['operator']] * config['times'])
         return get_composed_spec(
             obj_id,
             config['source'],
@@ -31,8 +32,8 @@ def get_composed_spec(obj_id, source, target, operators):
     ] + [
 
         {
-            'source': get_middle_node(obj_id, operator[idx - 1], idx - 1),
-            'target': get_middle_node(obj_id, operator, idx),
+            'source': get_middle_node(obj_id, operators[idx], idx),
+            'target': get_middle_node(obj_id, operator, idx + 1),
             'operator': operator
         }
 
