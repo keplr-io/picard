@@ -42,28 +42,20 @@ spec = {
 
     'legs': {
         'incoming': {
-            'headline-input': {
-                'shape': (100, ),
+            'input-0': {
                 'dtype': 'int32'
             },
 
-            'aux-input': {
-                'shape': (5,)
+            'input-1': {
             }
         },
 
         'outgoing': {
-            'headline-output': {
+            'output-0': {
                 'loss': 'binary_crossentropy',
-                'loss_weight': 1.
             },
-            'aux-output': {
-                'loss': 'binary_crossentropy',
-                'loss_weight': 0.2
-            }
         }
     },
-
 
     'graph': {
 
@@ -76,7 +68,7 @@ spec = {
 
         'edges': [
             {
-                'source': 'headline-input',
+                'source': 'input-0',
                 'target': 'post-embedding',
                 'operator': 'embedding'
             },
@@ -86,7 +78,7 @@ spec = {
                 'operator': 'lstm'
             },
             {
-                'source': 'aux-input',
+                'source': 'input-1',
                 'target': 'pre-dense',
                 'operator': 'IDENTITY'
             },
@@ -98,12 +90,24 @@ spec = {
             {
                 'source': 'pre-dense',
                 'target': 'post-dense1',
-                'operator': 'dense'
+                'operator': {
+                    '#compose': {
+                        'operators': [
+                            'dense',
+                            'dense'
+                        ]
+                    }
+                }
             },
             {
                 'source': 'post-dense1',
                 'target': 'post-dense2',
-                'operator': 'dense'
+                'operator': {
+                    '#repeat': {
+                        'operator': 'dense',
+                        'times': 5
+                    }
+                }
             },
             {
                 'source': 'post-dense2',
@@ -112,14 +116,9 @@ spec = {
             },
             {
                 'source': 'post-dense3',
-                'target': 'headline-output',
+                'target': 'output-0',
                 'operator': 'smallDense'
-            },
-            {
-                'source': 'post-lstm',
-                'target': 'aux-output',
-                'operator': 'smallDense'
-            },
+            }
         ]
 
     },
@@ -128,4 +127,7 @@ spec = {
         'optimizer': 'rmsprop'
     },
 
+    'fit': {
+        'batch_size': 64,
+    }
 }

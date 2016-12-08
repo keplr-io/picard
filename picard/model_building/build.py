@@ -12,15 +12,15 @@ from copy import deepcopy
 def get_hypermodel(model_spec, data_spec):
     hypermodel = deepcopy(model_spec)
 
-    for field_key in data_spec['in']:
+    for leg_spec in data_spec['in']:
         hypermodel['legs']['incoming'][
-            'input-{}'.format(field_key)
-        ]['shape'] = data_spec['fields'][field_key]['shape']
+            leg_spec['leg']
+        ]['shape'] = data_spec['fields'][leg_spec['field']]['shape']
 
-    for field_key in data_spec['out']:
+    for leg_spec in data_spec['out']:
         hypermodel['legs']['outgoing'][
-            'output-{}'.format(field_key)
-        ]['shape'] = data_spec['fields'][field_key]['shape']
+            leg_spec['leg']
+        ]['shape'] = data_spec['fields'][leg_spec['field']]['shape']
     return hypermodel
 
 def build_model(model_spec, data_spec):

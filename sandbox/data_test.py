@@ -8,7 +8,7 @@ picard_input = get_picard_input(
                 'shape': (1000,)
             },
             'time_ts': {
-                'type': 'date'
+                'type': 'date',
                 'shape': (5,)
             },
             'score': {
