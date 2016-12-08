@@ -1,14 +1,13 @@
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function
 
 from pyspark import SparkContext, SparkConf
 
-from picard.model_building.build import build_model
-from picard.search.minimizer import Minimizer
 from picard.search.spark_model import SparkMinimizer
 
 from graph_hyperspec import hyperspec
 from data import get_data
-from keras import backend as K
+from data_spec import data_spec
+# from keras import backend as K
 # import tensorflow as tf
 
 # K.set_session(tf.Session(
@@ -18,14 +17,15 @@ from keras import backend as K
 conf = SparkConf().setAppName('search ')
 context = SparkContext(conf=conf)
 
-sparkModel = SparkMinimizer(
+spark_model = SparkMinimizer(
     'minimize-exp-search',
     'minimize-exp',
+    data_spec,
     context,
     2
 )
 
-minModel = sparkModel.minimize(
+spark_model.minimize(
     space=hyperspec,
     data=get_data(),
     search_config={

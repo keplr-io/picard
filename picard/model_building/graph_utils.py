@@ -11,6 +11,7 @@ def get_graph(model_spec, debug=False):
         Builds a networkx representation of the graph,
     '''
 
+
     graph = MultiDiGraph()
 
     graph.add_nodes_from(
@@ -18,6 +19,12 @@ def get_graph(model_spec, debug=False):
         model_spec['legs']['incoming'].keys() +
         model_spec['legs']['outgoing'].keys()
     )
+
+    print('-------------')
+    print(
+        model_spec['graph']['edges']
+    )
+    print('===============')
 
     graph.add_edges_from(
         [
