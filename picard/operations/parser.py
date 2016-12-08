@@ -47,3 +47,9 @@ def get_parser(allowed_prefixes):
         }
 
     return parse_config
+
+def compose_parsers(parser_1, parser_2):
+
+    def composition(obj, obj_id='obj'):
+        return parser_1(parser_2(obj, obj_id), obj_id)
+    return composition

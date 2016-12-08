@@ -18,6 +18,11 @@ def apply_picard_operation(obj_id, obj, cmd, parse_config):
         return hp.choice(obj_id + '.@repeat', options)
 
     if cmd == 'concat':
-        return sum(
-           parse_config(cmd_body, obj_id + '.@concat'), []
-        )
+        parsed_body = parse_config(cmd_body, obj_id + '.@concat')
+
+        if all([isinstance(child, list) for child in parsed_body]):
+            return sum(parsed_body)
+
+        return {
+            '@concat': parsed_body
+        }

@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from picard.search.hyperspec import parse_config
+from picard.parsers import parse_hyperspec
 from graph_hyperspec import hyperspec
 
-print parse_config(hyperspec)
+print parse_hyperspec(hyperspec)

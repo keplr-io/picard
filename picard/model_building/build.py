@@ -8,8 +8,14 @@ from .graph_utils import get_graph, get_graph_edge
 from .operator_utils import get_operator_image
 from keras import backend as K
 from copy import deepcopy
+from ..parsers import parse_hypermodel
 
 def get_hypermodel(model_spec, data_spec):
+    return parse_hypermodel(
+        get_hypermodel_fitted_to_data(model_spec, data_spec)
+    )
+
+def get_hypermodel_fitted_to_data(model_spec, data_spec):
     hypermodel = deepcopy(model_spec)
 
     for leg_spec in data_spec['in']:
@@ -21,6 +27,7 @@ def get_hypermodel(model_spec, data_spec):
         hypermodel['legs']['outgoing'][
             leg_spec['leg']
         ]['shape'] = data_spec['fields'][leg_spec['field']]['shape']
+
     return hypermodel
 
 def build_model(model_spec, data_spec):
