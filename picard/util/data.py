@@ -17,45 +17,39 @@ def get_picard_input(data_spec, path):
 
     split_idx = floor(fields_data.items()[0][1].size * split)
 
-    def get_input_key(field_key):
-        return 'input-{}'.format(fields_spec[field_key]['idx'])
-
-    def get_output_key(field_key):
-        return 'output-{}'.format(fields_spec[field_key]['idx'])
-
     return {
 
         'train': {
             'in': dict([
                 (
-                    get_input_key(field_key),
-                    fields_data[field_key]['data'][split_idx:]
+                    field_spec['leg'],
+                    fields_data[field_spec['field']][split_idx:]
                 )
-                for field_key in data_spec['in']
+                for field_spec in data_spec['in']
             ]),
             'out': dict([
                 (
-                    get_output_key(field_key),
-                    fields_data[field_key]['data'][split_idx:]
+                    field_spec['leg'],
+                    fields_data[field_spec['field']][split_idx:]
                 )
-                for field_key in data_spec['out']
+                for field_spec in data_spec['out']
             ]),
         },
 
         'test': {
             'in': dict([
                 (
-                    get_input_key(field_key),
-                    fields_data[field_key]['data'][:split_idx]
+                    field_spec['leg'],
+                    fields_data[field_spec['field']][:split_idx]
                 )
-                for field_key in data_spec['in']
+                for field_spec in data_spec['in']
             ]),
             'out': dict([
                 (
-                    get_output_key(field_key),
-                    fields_data[field_key]['data'][:split_idx]
+                    field_spec['leg'],
+                    fields_data[field_spec['field']][:split_idx]
                 )
-                for field_key in data_spec['out']
+                for field_spec in data_spec['out']
             ]),
         },
 
@@ -78,4 +72,3 @@ def get_fields_df(fields_spec, path):
     return read_csv(path).dropna(
         subset=field_keys
     )[field_keys].reset_index(drop=True)
-
