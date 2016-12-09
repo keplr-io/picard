@@ -14,8 +14,6 @@ model = build_model(spec, data_spec)
 
 data = get_picard_input(data_spec, './sandbox/data/00_short.csv')
 
-print data
-
 train_data = data['train']
 test_data = data['test']
 

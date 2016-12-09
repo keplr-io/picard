@@ -8,7 +8,7 @@ spec = {
             'spec': {
                 'output_dim': 512,
                 'input_dim': 10000,
-                'input_length': 100
+                'input_length': 500
             }
         },
 

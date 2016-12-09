@@ -2,11 +2,11 @@ data_spec = {
     'fields': {
         'title': {
             'type': 'text_seq',
-            'shape': (1000,)
+            'shape': (500,)
         },
         'time_ts': {
             'type': 'date',
-            'shape': (5,)
+            'shape': (1,)
         },
         'score': {
             'type': 'float',
