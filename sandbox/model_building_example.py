@@ -14,10 +14,10 @@ data = get_data()
 train_data = data['train']
 test_data = data['test']
 
-# model.fit(
-#     data['train']['in'],
-#     data['train']['out'],
-#     nb_epoch=2,
-#     batch_size=32,
-#     callbacks=[TensorBoard(log_dir='/tmp/graph-logs')]
-# )
+model.fit(
+    data['train']['in'],
+    data['train']['out'],
+    nb_epoch=2,
+    batch_size=32,
+    callbacks=[TensorBoard(log_dir='/tmp/graph-logs')]
+)

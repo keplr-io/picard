@@ -23,7 +23,7 @@ def get_parser(allowed_prefixes):
         return [
             parse_config(
                 item,
-                obj_id + '.' + str(idx)
+                obj_id + '_' + str(idx)
             )
             for (idx, item) in enumerate(obj)
         ]
@@ -42,7 +42,7 @@ def get_parser(allowed_prefixes):
                 )
 
         return {
-            key: parse_config(value, obj_id + '.' + str(key))
+            key: parse_config(value, obj_id + '_' + str(key))
             for (key, value) in obj.items()
         }
 

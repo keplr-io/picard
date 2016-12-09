@@ -53,5 +53,5 @@ def get_composed_spec(obj_id, source, target, operators):
 
 def get_middle_node(obj_id, operator, idx):
     return 'compose-layer-{}-{}-{}'.format(
-        obj_id, operator, idx
+        obj_id.replace('@','PICARD-'), operator, idx
     )

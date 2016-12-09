@@ -69,6 +69,7 @@ def build_model(model_spec, data_spec):
         loss_weights=[
             leg_spec['loss_weight']
             for leg_key, leg_spec in hypermodel['legs']['outgoing'].iteritems()
+            if 'loss_weight' in leg_spec
         ],
         metrics=['accuracy'],
         **hypermodel['compile']

@@ -53,6 +53,7 @@ spec = {
         'outgoing': {
             'output-0': {
                 'loss': 'binary_crossentropy',
+                'loss_weight': 1
             },
         }
     },
@@ -115,15 +116,15 @@ spec = {
                             'dense'
                         ]
                     }
-                }#,
-                # {
-                #     '#repeat': {
-                #         'source': 'post-dense1',
-                #         'target': 'post-dense2',
-                #         'operator': 'dense',
-                #         'times': 3
-                #     }
-                # }
+                },
+                {
+                    '#repeat': {
+                        'source': 'post-dense1',
+                        'target': 'post-dense2',
+                        'operator': 'dense',
+                        'times': 3
+                    }
+                }
             ]
         }
 
