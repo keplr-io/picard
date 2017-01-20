@@ -10,11 +10,6 @@ from keras import backend as K
 from copy import deepcopy
 from ..parsers import parse_hypermodel
 
-def get_hypermodel(model_spec, data_spec):
-    return parse_hypermodel(
-        get_hypermodel_fitted_to_data(model_spec, data_spec)
-    )
-
 def get_hypermodel_fitted_to_data(model_spec, data_spec):
     hypermodel = deepcopy(model_spec)
 
@@ -32,7 +27,7 @@ def get_hypermodel_fitted_to_data(model_spec, data_spec):
 
 def build_model(model_spec, data_spec):
 
-    hypermodel = get_hypermodel(model_spec, data_spec)
+    hypermodel = get_hypermodel_fitted_to_data(model_spec, data_spec)
 
     '''
         Yields a compiled keras model

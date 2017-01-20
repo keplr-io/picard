@@ -4,21 +4,20 @@ spec = {
         'out': {'output': {}}
     },
 
-    'graph': {
-        'edges': ({
-            'operator': 'IDENTITY',
-            'source': 'input',
-            'target': 'ffStart'
-        }, {
-            'operator': 'ff',
-            'source': 'ffStart',
-            'target': 'ffEnd'
-        }, {
-            'operator': 'denseOut',
-            'source': 'ffEnd',
-            'target': 'output'
-        })
-    },
+    'edges': ({
+        'operator': 'IDENTITY',
+        'source': 'input',
+        'target': 'ffStart'
+    }, {
+        'operator': 'ff',
+        'source': 'ffStart',
+        'target': 'ffEnd'
+    }, {
+        'operator': 'denseOut',
+        'source': 'ffEnd',
+        'target': 'output'
+    }),
+
     'operators': {
         'ff': {
             '#compose': {

@@ -15,27 +15,17 @@ def get_graph(model_spec, debug=True):
     graph = MultiDiGraph()
 
     graph.add_nodes_from(
-        list(model_spec['graph']['nodes']) +
+        get_nodes(model_spec['edges']) +
         model_spec['legs']['in'].keys() +
         model_spec['legs']['out'].keys()
     )
 
-    print('-------------')
-    print(
-        model_spec['graph']['edges']
-    )
-    print (
-        [
-            edge for edge in model_spec['graph']['edges']
-        ]
-    )
-    print('===============')
 
     graph.add_edges_from(
         [
             (edge['source'], edge['target'], {
                 'operator': edge['operator']
-            }) for edge in model_spec['graph']['edges']
+            }) for edge in model_spec['edges']
         ]
     )
 
@@ -43,6 +33,13 @@ def get_graph(model_spec, debug=True):
         draw_graph(graph)
 
     return graph
+
+def get_nodes(edges):
+    nodes = {}
+    for edge in edges:
+        nodes[edge['source']] = True
+        nodes[edge['target']] = True
+    return nodes.keys()
 
 def get_graph_edge(graph, edge_tuple):
     return graph[edge_tuple[0]][edge_tuple[1]]
