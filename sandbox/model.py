@@ -1,9 +1,71 @@
 spec = {
-    'legs': {
-        'in': {'input': {}},
-        'out': {'output': {}}
+    'operators': {
+        'ff': {
+            '#compose': ({
+                '#compose': ({
+                    'layer': 'Dense',
+                    'config': {
+                        'activation': 'relu',
+                        'output_dim': 64
+                    }
+                }, {
+                    'layer': 'Dropout',
+                    'config': {
+                        'p': 0.44874479157662
+                    }
+                })
+            }, {
+                '#compose': ({
+                    'layer': 'Dense',
+                    'config': {
+                        'activation': 'sigmoid',
+                        'output_dim': 64
+                    }
+                }, )
+            }, {
+                '#compose': ({
+                    'layer': 'Dense',
+                    'config': {
+                        'activation': 'sigmoid',
+                        'output_dim': 64
+                    }
+                }, {
+                    'layer': 'Dropout',
+                    'config': {
+                        'p': 0.226596032739373
+                    }
+                })
+            }, {
+                '#compose': ({
+                    'layer': 'Dense',
+                    'config': {
+                        'activation': 'sigmoid',
+                        'output_dim': 64
+                    }
+                }, {
+                    'layer': 'Dropout',
+                    'config': {
+                        'p': 0.4371277936356525
+                    }
+                })
+            })
+        },
+        'denseOut': {
+            'layer': 'Dense',
+            'config': {
+                'activation': 'sigmoid',
+                'output_dim': 5
+            }
+        }
     },
-
+    'legs': {
+        'in': {
+            'input': {}
+        },
+        'out': {
+            'output': {}
+        }
+    },
     'edges': ({
         'operator': 'IDENTITY',
         'source': 'input',
@@ -16,31 +78,5 @@ spec = {
         'operator': 'denseOut',
         'source': 'ffEnd',
         'target': 'output'
-    }),
-
-    'operators': {
-        'ff': {
-            '#compose': {
-                'operators': ({
-                    '#compose': ({
-                        'activation': 'sigmoid',
-                        'layer': 'Dense',
-                        'output_dim': 64
-                    }, {
-                        '#optional': {
-                            'p': 0.48838714572798964,
-                            'layer': 'Dropout'
-                        }
-                    })
-                }, {
-                    '#compose': ({
-                        'activation': 'relu',
-                        'layer': 'Dense',
-                        'output_dim': 64
-                    }, )
-                })
-            }
-        },
-        'denseOut': {}
-    }
+    })
 }
