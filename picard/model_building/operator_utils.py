@@ -9,6 +9,7 @@ def get_operator_image(previous_state, operator_key, target_key, operator_spec):
         return previous_state
 
     operator_config = operator_spec[operator_key]
+    print operator_config
 
     return get_operator(
         operator_config['operator'],

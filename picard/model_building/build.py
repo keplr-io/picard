@@ -8,7 +8,6 @@ from .graph_utils import get_graph, get_graph_edge
 from .operator_utils import get_operator_image
 from keras import backend as K
 from copy import deepcopy
-from ..parsers import parse_hypermodel
 
 def get_hypermodel_fitted_to_data(model_spec, data_spec):
     hypermodel = deepcopy(model_spec)
@@ -40,7 +39,7 @@ def build_model(model_spec, data_spec):
             old_session.close()
 
         K.set_session(tf.Session(config=tf.ConfigProto(
-            gpu_options=tf.GPUOptions(allow_growth = True)
+            gpu_options=tf.GPUOptions(allow_growth=True)
         )))
 
     operator_images = get_operator_images(hypermodel)
