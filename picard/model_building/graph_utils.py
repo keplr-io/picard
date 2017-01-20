@@ -24,6 +24,11 @@ def get_graph(model_spec, debug=True):
     print(
         model_spec['graph']['edges']
     )
+    print (
+        [
+            edge for edge in model_spec['graph']['edges']
+        ]
+    )
     print('===============')
 
     graph.add_edges_from(

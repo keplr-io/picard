@@ -56,7 +56,7 @@ hyperspec = {
 
         'outgoing': {
             'output-0': {
-                'loss': 'binary_crossentropy',
+                'loss': 'categorical_crossentropy',
             },
         }
     },

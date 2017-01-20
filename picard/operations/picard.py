@@ -19,7 +19,8 @@ def apply_picard_operation(obj_id, obj, cmd, parse_config):
 
     if cmd == 'concat':
         parsed_body = parse_config(cmd_body, obj_id + '.@concat')
-
+        print(cmd_body)
+        print('=-=-=-==-==-=-')
         print(parsed_body)
 
         if all([isinstance(child, list) for child in parsed_body]):

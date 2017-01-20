@@ -34,7 +34,7 @@ def get_parser(allowed_prefixes):
         if len(obj.items()) == 1:
 
             child_key = obj.keys()[0]
-
+            print child_key[0]
             if child_key[0] in operations:
 
                 return operations[child_key[0]](

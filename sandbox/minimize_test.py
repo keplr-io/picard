@@ -9,6 +9,8 @@ from hyperopt import Trials
 
 minimizer = Minimizer(
     'experiment',
+    'lol',
+    data_config={'in':[], 'out': []},
     space_config=hyperspec,
     data=get_data(),
     trials=Trials()
