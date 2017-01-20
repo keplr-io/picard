@@ -19,12 +19,12 @@ def get_hypermodel_fitted_to_data(model_spec, data_spec):
     hypermodel = deepcopy(model_spec)
 
     for leg_spec in data_spec['in']:
-        hypermodel['legs']['incoming'][
+        hypermodel['legs']['in'][
             leg_spec['leg']
         ]['shape'] = data_spec['fields'][leg_spec['field']]['shape']
 
     for leg_spec in data_spec['out']:
-        hypermodel['legs']['outgoing'][
+        hypermodel['legs']['out'][
             leg_spec['leg']
         ]['shape'] = data_spec['fields'][leg_spec['field']]['shape']
 
@@ -53,22 +53,22 @@ def build_model(model_spec, data_spec):
     model = Model(
         input=[
             operator_images[leg_key]
-            for leg_key in hypermodel['legs']['incoming']
+            for leg_key in hypermodel['legs']['in']
         ],
         output=[
             operator_images[leg_key]
-            for leg_key in hypermodel['legs']['outgoing']
+            for leg_key in hypermodel['legs']['out']
         ]
     )
 
     model.compile(
         loss=[
             leg_spec['loss']
-            for leg_key, leg_spec in hypermodel['legs']['outgoing'].iteritems()
+            for leg_key, leg_spec in hypermodel['legs']['out'].iteritems()
         ],
         loss_weights=[
             leg_spec['loss_weight']
-            for leg_key, leg_spec in hypermodel['legs']['outgoing'].iteritems()
+            for leg_key, leg_spec in hypermodel['legs']['out'].iteritems()
             if 'loss_weight' in leg_spec
         ],
         metrics=['accuracy'],
@@ -97,7 +97,7 @@ def get_operator_images(model_spec):
             comps_map.update({
                 node_key: Input(
                     name=node_key,
-                    **model_spec['legs']['incoming'][node_key]
+                    **model_spec['legs']['in'][node_key]
                 )
             })
 

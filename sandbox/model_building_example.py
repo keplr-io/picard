@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 
-from graph_spec import spec
-from data import get_data
+from model import spec
 
 from picard.model_building.build import build_model
 from picard.util.data import get_picard_input

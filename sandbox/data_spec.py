@@ -16,17 +16,13 @@ data_spec = {
     'in': [
         {
             'field': 'title',
-            'leg': 'input-0'
+            'leg': 'input'
         },
-        {
-            'field': 'time_ts',
-            'leg': 'input-1'
-        }
     ],
     'out': [
         {
             'field': 'score',
-            'leg': 'output-0'
+            'leg': 'output'
         }
     ]
 }

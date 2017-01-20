@@ -16,8 +16,8 @@ def get_graph(model_spec, debug=True):
 
     graph.add_nodes_from(
         list(model_spec['graph']['nodes']) +
-        model_spec['legs']['incoming'].keys() +
-        model_spec['legs']['outgoing'].keys()
+        model_spec['legs']['in'].keys() +
+        model_spec['legs']['out'].keys()
     )
 
     print('-------------')
