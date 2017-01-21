@@ -57,13 +57,12 @@ def build_model(model_spec, data_spec):
 
     model.compile(
         loss=[
-            leg_spec['loss']
+            leg_spec['loss'] if 'loss' in leg_spec else 'categorical_crossentropy'
             for leg_key, leg_spec in hypermodel['legs']['out'].iteritems()
         ],
         loss_weights=[
-            leg_spec['loss_weight']
+            leg_spec['loss_weight'] if 'loss_weight' in leg_spec else 1
             for leg_key, leg_spec in hypermodel['legs']['out'].iteritems()
-            if 'loss_weight' in leg_spec
         ],
         metrics=['accuracy'],
         **hypermodel['compile']

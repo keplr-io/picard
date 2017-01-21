@@ -63,7 +63,9 @@ spec = {
             'input': {}
         },
         'out': {
-            'output': {}
+            'output': {
+                'loss': 'categorical_crossentropy'
+            }
         }
     },
     'edges': ({
@@ -78,5 +80,15 @@ spec = {
         'operator': 'denseOut',
         'source': 'ffEnd',
         'target': 'output'
-    })
+    }),
+    'compile': {
+        'optimizer': 'rmsprop'
+    },
+
+    'fit': {
+        'batch_size': {
+            '&choice': 64
+        },
+    }
+
 }
