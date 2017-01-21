@@ -22,7 +22,5 @@ def parse_repeat(spec):
 def get_reduced_spec(body):
     return (
         '#compose',
-        {
-            'operators': [body['operator']] * body['times']
-        }
+        [body['operator']] * body['times']
     )

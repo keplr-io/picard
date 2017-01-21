@@ -1,6 +1,14 @@
-from parse import preparse
+from parse import parse
 
-print preparse({
+# define an objective function
+def objective(args):
+    print args
+    return 1
+
+from hyperopt import hp
+from hyperopt import fmin, tpe
+
+space = parse({
     'operators': {
         'ff': {
             '#repeat': {
@@ -71,5 +79,26 @@ print preparse({
             'target': 'output',
             'operator': 'denseOut'
         }
-    ]
+    ],
+
+    'compile': {
+        'optimizer': {
+            '&choice': {
+                'options': ['rmsprop', 'adam']
+            }
+        }
+    },
+
+    'fit': {
+        'batch_size': {
+            '&choice': {
+                'options': [64, 128]
+            }
+        },
+    }
+
 })
+
+best = fmin(objective, space, algo=tpe.suggest, max_evals=10)
+
+print best

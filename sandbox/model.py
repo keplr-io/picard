@@ -54,7 +54,7 @@ spec = {
             'layer': 'Dense',
             'config': {
                 'activation': 'sigmoid',
-                'output_dim': 5
+                'output_dim': 1
             }
         }
     },
@@ -64,7 +64,7 @@ spec = {
         },
         'out': {
             'output': {
-                'loss': 'categorical_crossentropy'
+                'loss': 'binary_crossentropy'
             }
         }
     },

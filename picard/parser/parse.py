@@ -5,9 +5,12 @@ from hp import parse_hp
 
 def parse(spec):
     return parse_hp(
-        parse_optional(
-            parse_repeat(
-                parse_inversion(spec)
-            )
+        preparse(spec)
+    )
+
+def preparse(spec):
+    return parse_optional(
+        parse_repeat(
+            parse_inversion(spec)
         )
     )

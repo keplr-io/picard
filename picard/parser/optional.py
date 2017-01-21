@@ -24,7 +24,9 @@ def get_reduced_list(key, ls):
         return (
             '&choice',
             {
-                'options': get_possible_lists(ls)
+                'options': [
+                    {key: possible_ls} for possible_ls in get_possible_lists(ls)
+                ]
             }
         )
     return (key, parse_optional(ls))
@@ -46,21 +48,13 @@ def get_possible_lists(ls, head=0):
     if not is_optional(ls[head]):
         return get_possible_lists(ls, head + 1)
 
-    rmls = ls[:head] + ls[head + 1:]
+    left = ls[:head] + [ls[head]['#optional']]
+    right = ls[:head] + ls[head + 1:]
     return get_possible_lists(
-        ls, head + 1
+        left, head + 1
     ) + get_possible_lists(
-        rmls, head
+        right, head
     )
 
 def is_optional(item):
     return isinstance(item, dict) and '#optional' in item
-
-
-def get_reduced_spec(body):
-    return (
-        '#compose',
-        {
-            'operators': [body['operator']] * body['times']
-        }
-    )
