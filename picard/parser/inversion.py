@@ -41,7 +41,7 @@ def get_inv_options(key, body, inv_spec_key, inv_spec_val):
     if hp_spec_key == '&randint':
         return [
             get_choice_option(k, key, body, inv_spec_key)
-            for k in range(hp_spec_body['upper'])
+            for k in range(1, hp_spec_body['upper'])
         ]
 
     if hp_spec_key == '&choice':

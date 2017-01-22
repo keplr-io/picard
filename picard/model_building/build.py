@@ -11,7 +11,6 @@ from copy import deepcopy
 
 def get_hypermodel_fitted_to_data(model_spec, data_spec):
     hypermodel = deepcopy(model_spec)
-
     for leg_spec in data_spec['in']:
         hypermodel['legs']['in'][
             leg_spec['leg']
@@ -27,7 +26,7 @@ def get_hypermodel_fitted_to_data(model_spec, data_spec):
 def build_model(model_spec, data_spec):
 
     hypermodel = get_hypermodel_fitted_to_data(model_spec, data_spec)
-
+    print hypermodel
     '''
         Yields a compiled keras model
     '''

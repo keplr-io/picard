@@ -5,7 +5,7 @@
 
 from networkx import MultiDiGraph
 
-def get_graph(model_spec, debug=True):
+def get_graph(model_spec, debug=False):
 
     '''
         Builds a networkx representation of the graph,
