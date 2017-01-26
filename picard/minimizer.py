@@ -16,18 +16,17 @@ class Minimizer(object):
 
     def __init__(
         self,
+        spec,
+        data=None,
+        trials=None,
         training_callback_getters=[],
         start_callback=lambda *x: x,
         end_callback=lambda *x: x,
-        data=None,
-        space_config=None,
-        data_config=None,
-        trials=None
     ):
         self.data = data
-        self.space = parse(space_config)
+        self.space = parse(spec['space'])
         self.trials = trials
-        self.data_config = data_config
+        self.data_config = spec['data']
         self.start_callback = start_callback
         self.end_callback = end_callback
         self.training_callback_getters = training_callback_getters

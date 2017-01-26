@@ -16,8 +16,10 @@ class TestMinimize(unittest.TestCase):
 
     def test_minimize(self):
         minimizer = Minimizer(
-            data_config=dataspec,
-            space_config=hyperspec,
+            spec = {
+                'data': dataspec,
+                'space': hyperspec
+            },
             data=get_picard_input(
                 dataspec, {
                     'title': get_input_data(df['title']),
