@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 import unittest
-import numpy as np
 
 from picard.minimizer import Minimizer
 from picard.util.data import get_picard_input
@@ -28,13 +27,13 @@ class TestMinimize(unittest.TestCase):
             trials=Trials()
         )
 
-        minResult = minimizer.get_min_model(max_evals=1)
+        min_result = minimizer.get_min_model(max_evals=1)
         self.assertEquals(
-            type(minResult),
+            type(min_result),
             dict
         )
         self.assertEquals(
-            sorted(minResult.keys()),
+            sorted(min_result.keys()),
             sorted([
                 'loss',
                 'model_config',
