@@ -18,13 +18,6 @@ def get_next_state(operator_config, target_name, previous_state, parent_idx=0):
 
     if '#compose' in operator_config:
         ops = operator_config['#compose']
-        # if len(ops) == 1:
-        #     return get_next_state(
-        #         ops[0],
-        #         target_name,
-        #         previous_state,
-        #         parent_idx
-        #     )
 
         return reduce(
             lambda state_data, op: get_next_state(

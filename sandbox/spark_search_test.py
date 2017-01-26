@@ -7,6 +7,7 @@ from picard.search.spark_model import SparkMinimizer
 from graph_hyperspec import hyperspec
 from data import get_data
 from data_spec import data_spec
+
 # from keras import backend as K
 # import tensorflow as tf
 
@@ -19,20 +20,18 @@ context = SparkContext(conf=conf)
 
 spark_model = SparkMinimizer(
     'minimize-exp-search',
-    'minimize-exp',
+    'test-exp',
     data_spec,
     context,
-    2
+    3
 )
 
 spark_model.minimize(
     space=hyperspec,
     data=get_data(),
     search_config={
-        'max_evals': 2
+        'max_evals': 5
     }
 )
 
-
 print(minModel)
-
