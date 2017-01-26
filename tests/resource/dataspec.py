@@ -20,5 +20,8 @@ dataspec = {
             'field': 'score',
             'leg': 'output'
         }
-    ]
+    ],
+    'training': {
+        'split': 0.3
+    }
 }
