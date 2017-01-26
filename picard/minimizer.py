@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 import random
 from hyperopt import fmin, tpe, STATUS_OK
-from picard.file_utils import create_path
+from picard.util.file import create_path
 from picard.parser.parse import parse
 from picard.builder.build import build_model
 
