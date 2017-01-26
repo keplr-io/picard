@@ -17,8 +17,8 @@ class Minimizer(object):
     def __init__(
         self,
         training_callback_getters=[],
-        start_callback=lambda x: x,
-        end_callback=lambda x: x,
+        start_callback=lambda *x: x,
+        end_callback=lambda *x: x,
         data=None,
         space_config=None,
         data_config=None,
@@ -47,7 +47,7 @@ class Minimizer(object):
             self.data['train']['in'],
             self.data['train']['out'],
             validation_split=0.3,
-            nb_epoch=15,
+            nb_epoch=1,
             verbose=1,
             callbacks=[
                 getter(model_key)
