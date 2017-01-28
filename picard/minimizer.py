@@ -1,63 +1,66 @@
 from __future__ import absolute_import
 
-import random
-from hyperopt import fmin, tpe, STATUS_OK
-from picard.util.file import create_path
+from hyperopt import fmin, tpe
 from picard.parser.parse import parse
 from picard.builder.build import build_model
+from picard.util.file import create_path
+from hyperopt import STATUS_OK
+import random
 
-class Minimizer(object):
-    '''
-        An experiment determined by
-            - training & testing data
-            - a search space
-            - a hyperopt trials object
-    '''
+def get_min_model(
+    spec,
+    data=None,
+    trials=None,
+    training_callback_getters=[],
+    start_callback=lambda *x: x,
+    end_callback=lambda *x: x,
+    algo=tpe.suggest,
+    max_evals=5
+):
+    return fmin(
+        get_objective_fn(
+            data,
+            spec['data'],
+            training_callback_getters,
+            start_callback,
+            end_callback
+        ),
+        parse(spec['space']),
+        trials=trials,
+        algo=algo,
+        max_evals=max_evals,
+    )
 
-    def __init__(
-        self,
-        spec,
-        data=None,
-        trials=None,
-        training_callback_getters=[],
-        start_callback=lambda *x: x,
-        end_callback=lambda *x: x,
-    ):
-        self.data = data
-        self.space = parse(spec['space'])
-        self.trials = trials
-        self.data_config = spec['data']
-        self.start_callback = start_callback
-        self.end_callback = end_callback
-        self.training_callback_getters = training_callback_getters
-
-    def eval_model(self, model_config):
-        '''
-            train model on data
-        '''
-
-        model = build_model(model_config, self.data_config)
+def get_objective_fn(
+    data,
+    data_config,
+    training_callback_getters,
+    start_callback,
+    end_callback
+):
+    def objective(model_config):
+        model = build_model(model_config, data_config)
 
         model_key = str(id(model_config)) + str(random.random())
 
-        self.start_callback(model_key)
+        start_callback(model_key)
 
         model.fit(
-            self.data['train']['in'],
-            self.data['train']['out'],
-            validation_split=0.3,
-            nb_epoch=1,
+            data['train']['in'],
+            data['train']['out'],
+            validation_split=data_config['training']['val_split'],
+            nb_epoch=data_config['training']['epochs'],
             verbose=1,
             callbacks=[
                 getter(model_key)
-                for getter in self.training_callback_getters
+                for getter in training_callback_getters
             ],
             **(model_config['fit'])
         )
 
         loss = sum(model.evaluate(
-            self.data['test']['in'],
-            self.data['test']['out'],
+            data['test']['in'],
+            data['test']['out'],
             verbose=1,
         ))
 
@@ -75,7 +78,7 @@ class Minimizer(object):
             'model_key': model_key
         }
 
-        self.end_callback(
+        end_callback(
             model_key,
             model_result,
             model_file_path
@@ -83,31 +86,5 @@ class Minimizer(object):
 
         return model_result
 
+    return objective
 
-    def get_min_model(self, algo=tpe.suggest, max_evals=5):
-
-        return get_min_trial(
-            fmin(
-                self.eval_model,
-                space=self.space,
-                trials=self.trials,
-                algo=algo,
-                max_evals=max_evals,
-            ),
-            self.trials
-        )['result']
-
-def get_min_trial(search_params, trials):
-
-    for trial in trials:
-
-        params = trial['misc']['vals']
-
-        for key in params.keys():
-            if not params[key]:
-                params.pop(key, None)
-            else:
-                params[key] = params[key][0]
-
-        if params == search_params:
-            return trial

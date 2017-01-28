@@ -16,7 +16,7 @@ class TestMinimize(unittest.TestCase):
 
     def test_minimize(self):
         minimizer = Minimizer(
-            spec = {
+            {
                 'data': dataspec,
                 'space': hyperspec
             },

@@ -4,3 +4,4 @@ model_exports
 build
 sandbox/data
 tmp
+tests/hidden_*

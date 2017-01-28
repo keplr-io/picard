@@ -67,9 +67,10 @@ def get_inversion_spec_key(obj):
     return get_spec_key('+', obj)
 
 def get_spec_key(symbol, obj):
+
     if isinstance(obj, dict):
         for key, val in obj.items():
-            if key[0] is symbol:
+            if key[0] == symbol:
                 return key
     return None
 

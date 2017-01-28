@@ -17,8 +17,6 @@ setup(
         'gevent',
         'numpy',
         'networkx',
-        'hyperopt',
-        'boto3',
-        'heraspy'
+        'hyperopt'
     ]
 )

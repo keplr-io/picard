@@ -22,6 +22,8 @@ dataspec = {
         }
     ],
     'training': {
-        'split': 0.3
+        'split': 0.3,
+        'val_split': 0.2,
+        'epochs': 3,
     }
 }

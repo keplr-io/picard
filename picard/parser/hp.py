@@ -40,7 +40,7 @@ def apply_hp(obj_id, obj, cmd):
         obj_id,
         **parse_hp(
             obj['&' + cmd],
-            '{}.&{}'.format(obj_id, cmd)
+            '{}__&{}'.format(obj_id, cmd)
         )
     )
 
