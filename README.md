@@ -17,8 +17,11 @@ Here's a quick [tutorial](http://)
 
 
 ## Installation
+
+Install right from the repo with pip & git+https
 ```bash
-    pip install picard-minimizer
+    pip install git+https://github.com/jakebian/picard.git
+
 ```
 
 ## Basic Usage

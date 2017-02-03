@@ -6,3 +6,4 @@ sandbox/data
 tmp
 tests/hidden_*
 hidden*
+dist
