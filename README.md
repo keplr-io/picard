@@ -1,8 +1,8 @@
 # Picard: Declarative hyperparameter experiments for neural networks
 
-Picard lets you easily declare large spaces of ([keras](http://)) neural networks and to run ([hyperopt](http://)) optimization experiments on them.
+Picard lets you easily declare large spaces of ([keras](https://keras.io/)) neural networks and to run ([hyperopt](http://hyperopt.github.io/hyperopt/) optimization experiments on them.
 
-Here's a quick [tutorial](http://)
+Here's a quick [tutorial](picard.libs.keplr.io/tutorial/)
 
 - [Installation](#installation)
 - [Basic Usage](#basic-usage)
