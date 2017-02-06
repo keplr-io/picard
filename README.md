@@ -2,7 +2,7 @@
 
 Picard lets you easily declare large spaces of ([keras](https://keras.io/)) neural networks and to run ([hyperopt](http://hyperopt.github.io/hyperopt/) optimization experiments on them.
 
-Here's a quick [tutorial](//picard.libs.keplr.io/tutorial)
+Here's a quick [tutorial](http://picard.libs.keplr.io/tutorial)
 
 - [Installation](#installation)
 - [Basic Usage](#basic-usage)
